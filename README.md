@@ -1,96 +1,100 @@
-# College-ERP
-A college management system built using Django framework. It is designed for interactions between students and teachers. Features include attendance, marks and time table.
+# 🎓 College ERP — DevOps Deployment
 
-## Installation
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![Django](https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazon-aws&logoColor=white)
 
-Python and Django need to be installed
+> A College Management System built with Django — Containerized with Docker and deployed on AWS EC2.
 
-```bash
-pip install django
+---
+
+## 🌐 Live Demo
+```
+http://YOUR_EC2_IP:8000
 ```
 
-## Usage
+---
 
-Go to the College-ERP folder and run
+## 🛠️ Tech Stack
+| Technology | Usage |
+|-----------|-------|
+| Python/Django | Backend |
+| SQLite | Database |
+| Docker | Containerization |
+| AWS EC2 | Cloud Deployment |
+| Nginx | Web Server |
 
+---
+
+## 🚀 Deployment Steps
+
+### Step 1: Clone Repository
 ```bash
-python manage.py runserver
+git clone https://github.com/nasirbloch323/College-ERP-Devops.git
+cd College-ERP-Devops
 ```
 
-Then go to the browser and enter the url **http://127.0.0.1:8000/**
-
-
-## Login
-
-The login page is common for students and teachers.  
-The username is their name and password for everyone is 'project123'.  
-
-Example usernames:  
-student- 'samarth'  
-teacher- 'trisila'  
-
-You can access the django admin page at **http://127.0.0.1:8000/admin** and login with username 'admin' and the above password.
-
-Also a new admin user can be created using
-
-```bash
-python manage.py createsuperuser
+### Step 2: Dockerfile
+```dockerfile
+FROM python:3.10-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+RUN python manage.py migrate
+EXPOSE 8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 ```
 
-## Users
+### Step 3: Build Image
+```bash
+docker build -t college-erp .
+```
 
-New students and teachers can be added through the admin page. A new user needs to be created for each. 
+### Step 4: Run Container
+```bash
+docker run -d \
+--name college-app \
+-p 8000:8000 \
+college-erp
+```
 
-The admin page is used to modify all tables such as Students, Teachers, Departments, Courses, Classes etc.
+### Step 5: Verify
+```bash
+docker ps
+```
 
-**For more details regarding the system and features please refer the reports included.**
+---
 
-## Update (29/11/2020)
+## 🔐 Login Credentials
+| Role | Username | Password |
+|------|----------|----------|
+| Admin | admin | project123 |
+| Student | samarth | project123 |
+| Teacher | trisila | project123 |
 
-Added method to reset attendance time range in Django Admin page.
+---
 
-![alt_text](https://i.imgur.com/0xOWmUZ.png)
+## ✨ Features
+- ✅ Student Management
+- ✅ Teacher Management
+- ✅ Attendance Tracking
+- ✅ Marks & Performance
+- ✅ Admin Dashboard
+- ✅ Dockerized Deployment
 
-This is present in Django Admin -> Attendance (http://127.0.0.1:8000/admin/info/attendanceclass/).  
-Start Date: Start Date of Attendance period  
-End Date: End Date of Attendance period
+---
 
-This will delete all present attendance data and create new attendance objects for the given time range. 
+## 📚 What I Learned
+```
+✅ Writing Dockerfile
+✅ Building Docker Images
+✅ Running Docker Containers
+✅ AWS EC2 Deployment
+✅ Security Group Configuration
+```
 
-## Screenshots
+---
 
-### Teacher Page
-
-![alt text](https://imgur.com/pMAoEbG.png)
-
-![alt text](https://imgur.com/ZiQ3RRA.png)
-
-![alt text](https://imgur.com/i025CJW.png)
-
-![alt text](https://imgur.com/HQlLYmC.png)
-
-![alt text](https://imgur.com/j6RyBmU.png)
-
-![alt text](https://imgur.com/xIKEMvQ.png)
-
-![alt text](https://imgur.com/4Rl7Fpv.png)
-
-### Student Page
-
-![alt text](https://imgur.com/isL9cjz.png)
-
-![alt text](https://imgur.com/5pzl7m3.png)
-
-![alt text](https://imgur.com/7zWhHZx.png)
-
-![alt text](https://imgur.com/fu7gxk8.png)
-
-![alt text](https://imgur.com/NZqU268.png)
-
-### Admin Page
-
-![alt text](https://imgur.com/sDvDc9N.png)
-
-![alt text](https://imgur.com/tMKWx6f.png)
-
-![alt text](https://imgur.com/PvCsNeB.png)
+*Made with ❤️ by Nasir Baloch — DevOps Journey 🚀*
